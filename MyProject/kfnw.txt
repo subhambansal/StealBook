@@ -1,0 +1,28 @@
+package MyPackage1;
+import java.io.File;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+
+public class MyBook 
+{
+	public static void take(WebDriver Driver, String fileWithPath)throws Exception
+	{
+		TakesScreenshot scrShot =((TakesScreenshot)Driver);
+        File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
+        File DestFile=new File(fileWithPath);
+        FileUtils.copyFile(SrcFile, DestFile);
+	}
+	public static void main(String... args)throws Exception
+	{
+		String base = "https://www.fb.com/";
+		WebDriver Driver = MyDriver.getdriver("chrome");
+		Driver.manage().window().fullscreen();
+		Driver.get(base);		
+		String Path= "C:\\Myscreenshot\\test.png";	
+		take(Driver,Path);
+		Driver.quit();
+	}
+}
